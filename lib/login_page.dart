@@ -1,6 +1,9 @@
+// login_page.dart
+
 import 'package:flutter/material.dart';
 import 'home_page.dart';
 import 'signub_page.dart';
+import 'forgot_pasword.dart'; // Import halaman ForgotPasswordPage
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -82,8 +85,16 @@ class _LoginPageState extends State<LoginPage> {
                         ],
                       ),
                       TextButton(
-                        onPressed: () {},
-                        child: const Text('Forgot Password?',
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const ForgotPasswordPage(), // Pindah ke halaman Forgot Password
+                            ),
+                          );
+                        },
+                        child: const Text('Lupa Password?',
                             style: TextStyle(
                                 color: Color.fromARGB(255, 24, 0, 0))),
                       ),
