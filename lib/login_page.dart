@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'home_page.dart';
+import 'signub_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -31,11 +32,7 @@ class _LoginPageState extends State<LoginPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(
-                    'images/logoapk.png',
-                    height: 200,
-                    width: 200,
-                  ),
+                  Image.asset('images/logoapk.png', height: 200, width: 200),
                   const SizedBox(height: 32),
                   TextFormField(
                     decoration: const InputDecoration(
@@ -86,10 +83,9 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       TextButton(
                         onPressed: () {},
-                        child: const Text(
-                          'Forgot Password?',
-                          style: TextStyle(color: Colors.white),
-                        ),
+                        child: const Text('Forgot Password?',
+                            style: TextStyle(
+                                color: Color.fromARGB(255, 24, 0, 0))),
                       ),
                     ],
                   ),
@@ -97,25 +93,19 @@ class _LoginPageState extends State<LoginPage> {
                   ElevatedButton(
                     onPressed: () {
                       Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const HomePage()),
-                      );
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const HomePage()));
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.teal,
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 100,
-                        vertical: 16,
-                      ),
+                          horizontal: 100, vertical: 16),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
+                          borderRadius: BorderRadius.circular(30)),
                     ),
-                    child: const Text(
-                      'Sign In',
-                      style: TextStyle(fontSize: 18),
-                    ),
+                    child:
+                        const Text('Sign In', style: TextStyle(fontSize: 18)),
                   ),
                   const SizedBox(height: 16),
                   Row(
@@ -123,11 +113,14 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       const Text("Don't have an account?"),
                       TextButton(
-                        onPressed: () {},
-                        child: const Text(
-                          'Sign up',
-                          style: TextStyle(color: Colors.blue),
-                        ),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const SignUpPage()));
+                        },
+                        child: const Text('Sign up',
+                            style: TextStyle(color: Colors.blue)),
                       ),
                     ],
                   ),

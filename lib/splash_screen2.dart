@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
-import 'login_page.dart';
+import 'home_page.dart';
 
-class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+class SplashScreen2 extends StatefulWidget {
+  const SplashScreen2({super.key});
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  _SplashScreen2State createState() => _SplashScreen2State();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreen2State extends State<SplashScreen2> {
   @override
   void initState() {
     super.initState();
-    _navigateToLogin();
+    _navigateToHomePage();
   }
 
-  void _navigateToLogin() {
+  void _navigateToHomePage() {
     Future.delayed(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const LoginPage()),
+        MaterialPageRoute(builder: (context) => const HomePage()),
       );
     });
   }
@@ -39,9 +39,16 @@ class _SplashScreenState extends State<SplashScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset('images/logoapk.png', height: 300, width: 300),
-              const SizedBox(height: 20),
-              const SizedBox(height: 20),
+              Image.asset('images/logoapk2.png', height: 300, width: 300),
+              const SizedBox(height: 100),
+              const Text(
+                'WELCOME TO MY RUPIAH MANAGER',
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black),
+              ),
+              const SizedBox(height: 300),
               const CircularProgressIndicator(),
             ],
           ),
