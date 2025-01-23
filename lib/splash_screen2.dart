@@ -42,7 +42,7 @@ class _SplashScreen2State extends State<SplashScreen2> {
               Image.asset('images/logoapk2.png', height: 300, width: 300),
               const SizedBox(height: 100),
               const Text(
-                'WELCOME TO MY RUPIAH MANAGER',
+                'WELCOME TO MYRUPIAH MANAGER',
                 style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,

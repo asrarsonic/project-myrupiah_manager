@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'profil_page.dart';
 import 'calender_page.dart';
+import 'login_page.dart';
+import 'history_page.dart'; // Import history page
+import 'notification.dart'; // Import notification page
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -11,6 +15,7 @@ class HomePage extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            // Header
             Container(
               height: 150,
               color: Colors.lightGreenAccent,
@@ -22,10 +27,74 @@ class HomePage extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        IconButton(
+                        PopupMenuButton<String>(
                           icon: const Icon(Icons.menu,
-                              color: Colors.black, size: 28),
-                          onPressed: () {},
+                              color: Colors.black, size: 24),
+                          onSelected: (String value) {
+                            if (value == 'Logout') {
+                              _showLogoutConfirmationDialog(context);
+                            } else if (value == 'Profile') {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const ProfilePage()),
+                              );
+                            } else {
+                              print("$value selected");
+                            }
+                          },
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          itemBuilder: (BuildContext context) =>
+                              <PopupMenuEntry<String>>[
+                            PopupMenuItem<String>(
+                              value: 'Profile',
+                              child: Row(
+                                children: const [
+                                  Icon(Icons.person, size: 16),
+                                  SizedBox(width: 4),
+                                  Text(
+                                    'Profile',
+                                    style: TextStyle(fontSize: 14),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            PopupMenuItem<String>(
+                              value: 'Contact Support',
+                              child: Row(
+                                children: const [
+                                  Icon(Icons.contact_support, size: 16),
+                                  SizedBox(width: 4),
+                                  Text(
+                                    'Contact Support',
+                                    style: TextStyle(fontSize: 14),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const PopupMenuDivider(),
+                            PopupMenuItem<String>(
+                              value: 'Logout',
+                              child: Row(
+                                children: const [
+                                  Icon(Icons.logout,
+                                      size: 16, color: Colors.red),
+                                  SizedBox(width: 4),
+                                  Text(
+                                    'Log Out',
+                                    style: TextStyle(
+                                        fontSize: 14, color: Colors.red),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                          constraints: const BoxConstraints(
+                            minWidth: 100,
+                            maxWidth: 200,
+                          ),
                         ),
                         const Text(
                           'Balance',
@@ -37,8 +106,15 @@ class HomePage extends StatelessWidget {
                         ),
                         IconButton(
                           icon: const Icon(Icons.notifications,
-                              color: Colors.black, size: 28),
-                          onPressed: () {},
+                              color: Colors.black, size: 24),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => NotifikasiPage(),
+                              ),
+                            );
+                          },
                         ),
                       ],
                     ),
@@ -57,7 +133,7 @@ class HomePage extends StatelessWidget {
                       children: [
                         Icon(Icons.arrow_back_ios,
                             color: Colors.black, size: 16),
-                        SizedBox(width: 5),
+                        const SizedBox(width: 5),
                         GestureDetector(
                           onTap: () {
                             Navigator.push(
@@ -72,7 +148,7 @@ class HomePage extends StatelessWidget {
                             style: TextStyle(color: Colors.black, fontSize: 14),
                           ),
                         ),
-                        SizedBox(width: 5),
+                        const SizedBox(width: 5),
                         Icon(Icons.arrow_forward_ios,
                             color: Colors.black, size: 16),
                       ],
@@ -81,6 +157,7 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             ),
+            // Main Content
             Expanded(
               child: Center(
                 child: SizedBox(
@@ -104,17 +181,25 @@ class HomePage extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            _buildIconWithLabelAbove(
-                                Icons.fastfood, 'Food', Colors.blue),
+                            _buildIconWithNavigation(context, Icons.fastfood,
+                                'Food', Colors.blue, 'Food'),
                             const SizedBox(width: 45),
-                            _buildIconWithLabelAbove(
-                                Icons.attach_money, 'Bills', Colors.red),
+                            _buildIconWithNavigation(
+                                context,
+                                Icons.attach_money,
+                                'Bills',
+                                Colors.red,
+                                'Bills'),
                             const SizedBox(width: 45),
-                            _buildIconWithLabelAbove(
-                                Icons.diamond, 'Subscription', Colors.teal),
+                            _buildIconWithNavigation(context, Icons.diamond,
+                                'Subscription', Colors.teal, 'Subscription'),
                             const SizedBox(width: 45),
-                            _buildIconWithLabelAbove(
-                                Icons.local_hospital, 'Health', Colors.orange),
+                            _buildIconWithNavigation(
+                                context,
+                                Icons.local_hospital,
+                                'Health',
+                                Colors.orange,
+                                'Health'),
                           ],
                         ),
                       ),
@@ -124,11 +209,19 @@ class HomePage extends StatelessWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            _buildIconWithLabelAbove(
-                                Icons.shopping_cart, 'Shopping', Colors.purple),
+                            _buildIconWithNavigation(
+                                context,
+                                Icons.shopping_cart,
+                                'Shopping',
+                                Colors.purple,
+                                'Shopping'),
                             const SizedBox(height: 30),
-                            _buildIconWithLabelAbove(
-                                Icons.family_restroom, 'Family', Colors.cyan),
+                            _buildIconWithNavigation(
+                                context,
+                                Icons.family_restroom,
+                                'Family',
+                                Colors.cyan,
+                                'Family'),
                           ],
                         ),
                       ),
@@ -138,11 +231,15 @@ class HomePage extends StatelessWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            _buildIconWithLabelAbove(Icons.directions_bus,
-                                'Transport', Colors.green),
+                            _buildIconWithNavigation(
+                                context,
+                                Icons.directions_bus,
+                                'Transport',
+                                Colors.green,
+                                'Transport'),
                             const SizedBox(height: 30),
-                            _buildIconWithLabelAbove(
-                                Icons.school, 'Education', Colors.indigo),
+                            _buildIconWithNavigation(context, Icons.school,
+                                'Education', Colors.indigo, 'Education'),
                           ],
                         ),
                       ),
@@ -151,6 +248,7 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             ),
+            // Bottom Menu
             Container(
               color: Colors.lightGreenAccent,
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
@@ -160,8 +258,7 @@ class HomePage extends StatelessWidget {
                   _buildBottomMenuItem(Icons.account_balance_wallet, 'E-Money'),
                   _buildBottomMenuItem(Icons.account_balance, 'Budget'),
                   _buildBottomMenuItem(Icons.money, 'Cash'),
-                  _buildBottomMenuItem(Icons.more_horiz, 'Other'),
-                  _buildBottomMenuItem(Icons.nature, 'BNW'),
+                  _buildBottomMenuItem(Icons.insert_chart, 'Financial report'),
                 ],
               ),
             ),
@@ -171,20 +268,31 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildIconWithLabelAbove(IconData icon, String label, Color color) {
-    return Column(
-      children: [
-        CircleAvatar(
-          radius: 30,
-          backgroundColor: color,
-          child: Icon(icon, color: Colors.white, size: 24),
-        ),
-        const SizedBox(height: 5),
-        Text(
-          label,
-          style: const TextStyle(fontSize: 12),
-        ),
-      ],
+  Widget _buildIconWithNavigation(BuildContext context, IconData icon,
+      String label, Color color, String category) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => TransactionHistoryPage(),
+          ),
+        );
+      },
+      child: Column(
+        children: [
+          CircleAvatar(
+            radius: 30,
+            backgroundColor: color,
+            child: Icon(icon, color: Colors.white, size: 24),
+          ),
+          const SizedBox(height: 5),
+          Text(
+            label,
+            style: const TextStyle(fontSize: 12),
+          ),
+        ],
+      ),
     );
   }
 
@@ -192,13 +300,44 @@ class HomePage extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(icon, color: Colors.black),
+        Icon(icon, color: Colors.black, size: 24),
         const SizedBox(height: 5),
         Text(
           label,
-          style: const TextStyle(color: Colors.black),
+          style: const TextStyle(color: Colors.black, fontSize: 12),
         ),
       ],
+    );
+  }
+
+  void _showLogoutConfirmationDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Logout Confirmation'),
+          content: const Text('Are you sure you want to log out?'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const LoginPage(),
+                  ),
+                );
+              },
+              child: const Text('Yes'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('No'),
+            ),
+          ],
+        );
+      },
     );
   }
 }

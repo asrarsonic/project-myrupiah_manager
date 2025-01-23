@@ -45,7 +45,19 @@ class _CustomCalendarState extends State<CustomCalendar> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Title for Month Selection
+          Center(
+            child: Text(
+              selectedMonth != null
+                  ? '${monthNames[selectedMonth! - 1]} ${selectedYear ?? currentYear}'
+                  : 'Select a Month and Year',
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
+            ),
+          ),
+          const SizedBox(height: 24),
           const Text(
             'Month',
             style: TextStyle(
@@ -55,7 +67,6 @@ class _CustomCalendarState extends State<CustomCalendar> {
             ),
           ),
           const SizedBox(height: 16),
-          // Month Selection
           Wrap(
             spacing: 8,
             runSpacing: 8,
@@ -92,7 +103,6 @@ class _CustomCalendarState extends State<CustomCalendar> {
             }),
           ),
           const SizedBox(height: 24),
-          // Title for Year Selection
           const Text(
             'Year',
             style: TextStyle(
@@ -102,7 +112,6 @@ class _CustomCalendarState extends State<CustomCalendar> {
             ),
           ),
           const SizedBox(height: 16),
-          // Year Selection
           Wrap(
             spacing: 8,
             runSpacing: 8,
@@ -138,11 +147,10 @@ class _CustomCalendarState extends State<CustomCalendar> {
             }),
           ),
           const SizedBox(height: 32),
-          // Confirm Button
           Center(
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF013220), // Dark green button
+                backgroundColor: const Color(0xFF013220),
                 padding:
                     const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
                 shape: RoundedRectangleBorder(

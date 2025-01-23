@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart'; // Tambahkan ini
 import 'splash_screen.dart';
 import 'login_page.dart';
 import 'home_page.dart';
 
 void main() {
+  debugPaintSizeEnabled = true; // Aktifkan debug paint size
   runApp(const MyApp());
 }
 

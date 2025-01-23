@@ -7,10 +7,15 @@ class CalendarPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color(0xFFB2FF59), Color(0xFFE8F5E9)],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
+          ),
           child: Center(
             child: AndroidPhoneFrame(
               child: CustomCalendar(
@@ -40,8 +45,8 @@ class AndroidPhoneFrame extends StatelessWidget {
       width: 350,
       height: 700,
       decoration: BoxDecoration(
-        color: Colors.black,
-        borderRadius: BorderRadius.circular(40),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.2),
@@ -49,13 +54,9 @@ class AndroidPhoneFrame extends StatelessWidget {
             offset: const Offset(0, 4),
           ),
         ],
-        border: Border.all(
-          color: Colors.grey.shade800,
-          width: 2,
-        ),
       ),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(40),
+        borderRadius: BorderRadius.circular(16),
         child: child,
       ),
     );

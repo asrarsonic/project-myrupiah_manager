@@ -1,9 +1,7 @@
-// login_page.dart
-
 import 'package:flutter/material.dart';
 import 'home_page.dart';
 import 'signub_page.dart';
-import 'forgot_pasword.dart'; // Import halaman ForgotPasswordPage
+import 'forgot_pasword.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -39,7 +37,7 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(height: 32),
                   TextFormField(
                     decoration: const InputDecoration(
-                      hintText: 'Username or Email',
+                      hintText: 'Username your account',
                       prefixIcon: Icon(Icons.person),
                       filled: true,
                       fillColor: Colors.white,
@@ -89,8 +87,7 @@ class _LoginPageState extends State<LoginPage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) =>
-                                  const ForgotPasswordPage(), // Pindah ke halaman Forgot Password
+                              builder: (context) => const ForgotPasswordPage(),
                             ),
                           );
                         },
