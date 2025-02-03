@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:myrupiah/addhistory.dart';
 import 'home_page.dart';
 import 'login_page.dart';
+import 'profil_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -27,7 +28,6 @@ class TransactionHistoryPage extends StatefulWidget {
 }
 
 class _TransactionHistoryPageState extends State<TransactionHistoryPage> {
-  // Daftar transaksi
   List<Map<String, dynamic>> transactions = [
     {
       "date": "22",
@@ -128,8 +128,9 @@ class _TransactionHistoryPageState extends State<TransactionHistoryPage> {
           ],
           onSelected: (value) {
             if (value == 'profile') {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Profile clicked')),
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ProfilePage()),
               );
             } else if (value == 'support') {
               ScaffoldMessenger.of(context).showSnackBar(

@@ -12,39 +12,36 @@ class ProfilePage extends StatelessWidget {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              Colors.lightGreenAccent, // Hijau di atas
-              Colors.white, // Putih di bawah
+              Colors.lightGreenAccent,
+              Colors.white,
             ],
           ),
         ),
         child: Column(
           children: [
             Stack(
-              clipBehavior: Clip.none, // Agar konten tidak terpotong
+              clipBehavior: Clip.none,
               children: [
-                // Latar Hijau
                 Container(
-                  height: 180, // Tinggi latar hijau dinaikkan
+                  height: 180,
                   color: Colors.lightGreenAccent,
                 ),
-                // Tombol Back
                 Positioned(
-                  top: 40, // Posisi di bagian atas
+                  top: 40,
                   left: 20,
                   child: IconButton(
                     onPressed: () {
-                      Navigator.pop(context); // Navigasi ke halaman sebelumnya
+                      Navigator.pop(context);
                     },
                     icon: const Icon(
                       Icons.arrow_back,
-                      color: Colors.black, // Warna ikon hitam
+                      color: Colors.black,
                       size: 24,
                     ),
                   ),
                 ),
-                // Kotak Putih
                 Positioned(
-                  top: 100, // Jarak dari atas diperbesar
+                  top: 100,
                   left: 20,
                   right: 20,
                   child: Container(
@@ -62,18 +59,16 @@ class ProfilePage extends StatelessWidget {
                     ),
                     child: Column(
                       children: [
-                        // Avatar
                         CircleAvatar(
-                          radius: 50, // Ukuran avatar
+                          radius: 50,
                           backgroundColor: Colors.grey.shade300,
                           child: const Icon(
                             Icons.person,
-                            size: 50, // Ukuran ikon di dalam avatar
+                            size: 50,
                             color: Colors.black,
                           ),
                         ),
                         const SizedBox(height: 10),
-                        // Nama
                         const Text(
                           'Anonym',
                           style: TextStyle(
@@ -88,9 +83,7 @@ class ProfilePage extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(
-                height: 150), // Memberi ruang tambahan setelah kotak putih
-            // Total Expenditure
+            const SizedBox(height: 150),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 20),
               padding: const EdgeInsets.all(16),
@@ -128,12 +121,11 @@ class ProfilePage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 30),
-            // Logo MyRupiah
             Column(
               children: [
                 const SizedBox(height: 10),
                 Image.asset(
-                  'images/logoapk.png', // Sesuaikan dengan file logo yang Anda miliki
+                  'images/logoapk.png',
                   height: 300,
                 ),
               ],

@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'profil_page.dart';
 import 'calender_page.dart';
 import 'login_page.dart';
-import 'history_page.dart'; // Import history page
-import 'notification.dart'; // Import notification page
+import 'history_page.dart';
+import 'notification.dart';
+import 'setbudget.dart';
+import 'financial_report.dart';
+import 'cash.dart';
+import 'e_mony.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -15,7 +19,6 @@ class HomePage extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            // Header
             Container(
               height: 150,
               color: Colors.lightGreenAccent,
@@ -157,7 +160,6 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             ),
-            // Main Content
             Expanded(
               child: Center(
                 child: SizedBox(
@@ -168,16 +170,16 @@ class HomePage extends StatelessWidget {
                     alignment: Alignment.center,
                     children: [
                       Positioned(
-                        top: 0,
+                        top: 30,
                         child: Image.asset(
                           'images/statistik_pengeluaran.png',
-                          width: 230,
-                          height: 230,
+                          width: 200,
+                          height: 200,
                           fit: BoxFit.cover,
                         ),
                       ),
                       Positioned(
-                        top: -100,
+                        top: -60,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -205,7 +207,7 @@ class HomePage extends StatelessWidget {
                       ),
                       Positioned(
                         left: -30,
-                        top: 10,
+                        top: 35,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
@@ -227,7 +229,7 @@ class HomePage extends StatelessWidget {
                       ),
                       Positioned(
                         right: -30,
-                        top: 10,
+                        top: 35,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
@@ -248,17 +250,59 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             ),
-            // Bottom Menu
             Container(
               color: Colors.lightGreenAccent,
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  _buildBottomMenuItem(Icons.account_balance_wallet, 'E-Money'),
-                  _buildBottomMenuItem(Icons.account_balance, 'Budget'),
-                  _buildBottomMenuItem(Icons.money, 'Cash'),
-                  _buildBottomMenuItem(Icons.insert_chart, 'Financial report'),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const EMoneyPage(),
+                        ),
+                      );
+                    },
+                    child: _buildBottomMenuItem(
+                        Icons.account_balance_wallet, 'E-Money'),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const BudgetActivityPage(),
+                        ),
+                      );
+                    },
+                    child:
+                        _buildBottomMenuItem(Icons.account_balance, 'Budget'),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const CashPage(),
+                        ),
+                      );
+                    },
+                    child: _buildBottomMenuItem(Icons.money, 'Cash'),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const FinancialReportPage(),
+                        ),
+                      );
+                    },
+                    child: _buildBottomMenuItem(
+                        Icons.insert_chart, 'Financial report'),
+                  )
                 ],
               ),
             ),
