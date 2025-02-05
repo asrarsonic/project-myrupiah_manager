@@ -9,8 +9,16 @@ import 'financial_report.dart';
 import 'cash.dart';
 import 'e_mony.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  String currentMonth = 'SEPTEMBER';
+  String currentYear = '2024';
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +29,7 @@ class HomePage extends StatelessWidget {
           children: [
             Container(
               height: 150,
-              color: Colors.lightGreenAccent,
+              color: const Color.fromARGB(255, 144, 245, 62),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
@@ -131,30 +139,45 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 5),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.arrow_back_ios,
-                            color: Colors.black, size: 16),
-                        const SizedBox(width: 5),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const CalendarPage(),
-                              ),
-                            );
-                          },
-                          child: const Text(
-                            'SEPTEMBER 2024',
-                            style: TextStyle(color: Colors.black, fontSize: 14),
+                    // Di HomePage, ubah bagian TextButton menjadi:
+                    TextButton(
+                      onPressed: () async {
+                        // Tunggu hasil dari CalendarPage
+                        final result = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => CalendarPage(
+                              initialMonth: currentMonth,
+                              initialYear: currentYear,
+                            ),
                           ),
-                        ),
-                        const SizedBox(width: 5),
-                        Icon(Icons.arrow_forward_ios,
-                            color: Colors.black, size: 16),
-                      ],
+                        );
+
+                        if (result != null) {
+                          setState(() {
+                            currentMonth = result['month'];
+                            currentYear = result['year'];
+                          });
+                        }
+                      },
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            '$currentMonth $currentYear',
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 14,
+                            ),
+                          ),
+                          const SizedBox(width: 4),
+                          const Icon(
+                            Icons.arrow_drop_down,
+                            color: Colors.black,
+                            size: 20,
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
@@ -251,7 +274,7 @@ class HomePage extends StatelessWidget {
               ),
             ),
             Container(
-              color: Colors.lightGreenAccent,
+              color: const Color.fromARGB(255, 144, 245, 62),
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,

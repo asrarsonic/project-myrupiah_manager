@@ -61,7 +61,7 @@ class _EMoneyPageState extends State<EMoneyPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 66, 224, 30),
+        backgroundColor: const Color.fromARGB(255, 144, 245, 62),
         title: const Text(
           'E-Money',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
@@ -87,7 +87,7 @@ class _EMoneyPageState extends State<EMoneyPage> {
       body: Column(
         children: [
           Container(
-            color: const Color.fromARGB(255, 66, 224, 30),
+            color: const Color.fromARGB(255, 144, 245, 62),
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
