@@ -83,10 +83,8 @@ class _CustomCalendarState extends State<CustomCalendar> {
   @override
   void initState() {
     super.initState();
-    // Initialize with passed values
     displayedMonth = widget.initialMonth;
     displayedYear = int.parse(widget.initialYear);
-    // Set initial selected month and year
     selectedMonth = monthNames.indexOf(displayedMonth) + 1;
     selectedYear = displayedYear;
   }
@@ -107,7 +105,10 @@ class _CustomCalendarState extends State<CustomCalendar> {
       height: double.infinity,
       decoration: const BoxDecoration(
         gradient: LinearGradient(
-          colors: [Color.fromARGB(255, 153, 241, 53), Colors.white],
+          colors: [
+            Color.fromARGB(255, 153, 241, 53),
+            Colors.white,
+          ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
@@ -115,150 +116,174 @@ class _CustomCalendarState extends State<CustomCalendar> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Header
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Row(
+          // Header with centered title
+          Container(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
+            child: Stack(
+              alignment: Alignment.center,
               children: [
-                IconButton(
-                  icon: const Icon(Icons.close, color: Colors.black),
-                  onPressed: () => Navigator.of(context).maybePop(),
+                Center(
+                  child: Text(
+                    '$displayedMonth $displayedYear',
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
                 ),
-                Text(
-                  '$displayedMonth $displayedYear',
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                Positioned(
+                  left: 0,
+                  child: IconButton(
+                    icon:
+                        const Icon(Icons.close, color: Colors.black, size: 28),
+                    onPressed: () => Navigator.of(context).maybePop(),
                   ),
                 ),
               ],
             ),
           ),
-          // ... rest of the code remains the same ...
           const SizedBox(height: 20),
-          // Month text
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.0),
             child: Text(
               'Month',
               style: TextStyle(
-                fontSize: 16,
+                fontSize: 18,
                 fontWeight: FontWeight.w500,
                 color: Colors.black,
               ),
             ),
           ),
           const SizedBox(height: 16),
-          // Month grid
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: List.generate(12, (index) {
-              final month = index + 1;
-              return InkWell(
-                onTap: () {
-                  setState(() {
-                    selectedMonth = month;
-                  });
-                },
-                child: Container(
-                  width: 45,
-                  height: 45,
-                  decoration: BoxDecoration(
-                    color: selectedMonth == month
-                        ? const Color(0xFF4169E1)
-                        : Colors.white,
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        blurRadius: 4,
-                        offset: const Offset(0, 2),
-                      ),
-                    ],
-                  ),
-                  child: Center(
-                    child: Text(
-                      month.toString(),
-                      style: TextStyle(
-                        color: selectedMonth == month
-                            ? Colors.white
-                            : Colors.black,
-                        fontSize: 16,
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30.0),
+              child: Wrap(
+                alignment: WrapAlignment.center,
+                spacing: 12,
+                runSpacing: 12,
+                children: List.generate(12, (index) {
+                  final month = index + 1;
+                  return Container(
+                    width: 45,
+                    height: 45,
+                    decoration: BoxDecoration(
+                      color: selectedMonth == month
+                          ? const Color(0xFF4169E1)
+                          : Colors.white,
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.1),
+                          blurRadius: 2,
+                          offset: const Offset(0, 1),
+                        ),
+                      ],
+                    ),
+                    child: Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(22.5),
+                        onTap: () {
+                          setState(() {
+                            selectedMonth = month;
+                          });
+                        },
+                        child: Center(
+                          child: Text(
+                            month.toString(),
+                            style: TextStyle(
+                              color: selectedMonth == month
+                                  ? Colors.white
+                                  : Colors.black,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-              );
-            }),
+                  );
+                }),
+              ),
+            ),
           ),
-          const SizedBox(height: 24),
-          // Year text
+          const SizedBox(height: 30),
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.0),
             child: Text(
               'Year',
               style: TextStyle(
-                fontSize: 16,
+                fontSize: 18,
                 fontWeight: FontWeight.w500,
                 color: Colors.black,
               ),
             ),
           ),
           const SizedBox(height: 16),
-          // Year grid
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: List.generate(8, (index) {
-              final year = currentYear + index;
-              return InkWell(
-                onTap: () {
-                  setState(() {
-                    selectedYear = year;
-                  });
-                },
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 8,
-                  ),
-                  decoration: BoxDecoration(
-                    color: selectedYear == year
-                        ? const Color(0xFF4169E1)
-                        : Colors.white,
-                    borderRadius: BorderRadius.circular(20),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        blurRadius: 4,
-                        offset: const Offset(0, 2),
-                      ),
-                    ],
-                  ),
-                  child: Text(
-                    year.toString(),
-                    style: TextStyle(
-                      color: selectedYear == year ? Colors.white : Colors.black,
-                      fontSize: 14,
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30.0),
+              child: Wrap(
+                alignment: WrapAlignment.center,
+                spacing: 12,
+                runSpacing: 12,
+                children: List.generate(8, (index) {
+                  final year = currentYear + index;
+                  return Container(
+                    width: 75,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: selectedYear == year
+                          ? const Color(0xFF4169E1)
+                          : Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.1),
+                          blurRadius: 2,
+                          offset: const Offset(0, 1),
+                        ),
+                      ],
                     ),
-                  ),
-                ),
-              );
-            }),
+                    child: Material(
+                      color: Colors.transparent,
+                      borderRadius: BorderRadius.circular(20),
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(20),
+                        onTap: () {
+                          setState(() {
+                            selectedYear = year;
+                          });
+                        },
+                        child: Center(
+                          child: Text(
+                            year.toString(),
+                            style: TextStyle(
+                              color: selectedYear == year
+                                  ? Colors.white
+                                  : Colors.black,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                }),
+              ),
+            ),
           ),
-          const SizedBox(height: 24),
-          // Confirm button
+          const SizedBox(height: 40),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            padding: const EdgeInsets.all(16.0),
             child: SizedBox(
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: selectedMonth != null && selectedYear != null
                     ? () {
                         updateHeader();
-                        // Kirim data kembali ke HomePage
                         Navigator.pop(context, {
                           'month': displayedMonth,
                           'year': displayedYear.toString()
@@ -266,8 +291,8 @@ class _CustomCalendarState extends State<CustomCalendar> {
                       }
                     : null,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 26, 119, 173),
-                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  backgroundColor: const Color(0xFF0E7490),
+                  padding: const EdgeInsets.symmetric(vertical: 12),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),

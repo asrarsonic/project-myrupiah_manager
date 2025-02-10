@@ -8,6 +8,7 @@ import 'setbudget.dart';
 import 'financial_report.dart';
 import 'cash.dart';
 import 'e_mony.dart';
+import 'package:fl_chart/fl_chart.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -19,6 +20,80 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   String currentMonth = 'SEPTEMBER';
   String currentYear = '2024';
+
+  // Sample Data - Replace with your actual data
+  final Map<String, double> categoryValues = {
+    'Food': 20,
+    'Bills': 15,
+    'Subscription': 10,
+    'Health': 12,
+    'Shopping': 18,
+    'Transport': 7,
+    'Family': 10,
+    'Education': 8,
+  };
+
+  List<PieChartSectionData> _generatePieChartSections() {
+    List<PieChartSectionData> sections = [];
+
+    categoryValues.forEach((category, value) {
+      final color = _getCategoryColor(category);
+      sections.add(
+        PieChartSectionData(
+          color: color,
+          value: value,
+          title: '', // Tidak menampilkan angka
+
+          radius: 15, // Slightly larger radius
+        ),
+      );
+    });
+    return sections;
+  }
+
+  Color _getCategoryColor(String category) {
+    // Customize colors for each category
+    switch (category) {
+      case 'Food':
+        return Colors.blue;
+      case 'Bills':
+        return Colors.red;
+      case 'Subscription':
+        return Colors.teal;
+      case 'Health':
+        return Colors.orange;
+      case 'Shopping':
+        return Colors.purple;
+      case 'Transport':
+        return Colors.green;
+      case 'Family':
+        return Colors.cyan;
+      case 'Education':
+        return Colors.indigo;
+      default:
+        return Colors.grey;
+    }
+  }
+
+  Widget _buildPieChart() {
+    return Column(
+      children: [
+        // Bagian Pie Chart
+        SizedBox(
+          width: 300, // Increased size
+          height: 230,
+          child: PieChart(
+            PieChartData(
+              sections: _generatePieChartSections(),
+              sectionsSpace: 0, // Jarak antar sektor
+              centerSpaceRadius: 80, // Membuat efek donut
+              borderData: FlBorderData(show: false),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -194,12 +269,7 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       Positioned(
                         top: 30,
-                        child: Image.asset(
-                          'images/statistik_pengeluaran.png',
-                          width: 200,
-                          height: 200,
-                          fit: BoxFit.cover,
-                        ),
+                        child: _buildPieChart(),
                       ),
                       Positioned(
                         top: -60,
@@ -208,17 +278,17 @@ class _HomePageState extends State<HomePage> {
                           children: [
                             _buildIconWithNavigation(context, Icons.fastfood,
                                 'Food', Colors.blue, 'Food'),
-                            const SizedBox(width: 45),
+                            const SizedBox(width: 35),
                             _buildIconWithNavigation(
                                 context,
                                 Icons.attach_money,
                                 'Bills',
                                 Colors.red,
                                 'Bills'),
-                            const SizedBox(width: 45),
+                            const SizedBox(width: 35),
                             _buildIconWithNavigation(context, Icons.diamond,
                                 'Subscription', Colors.teal, 'Subscription'),
-                            const SizedBox(width: 45),
+                            const SizedBox(width: 35),
                             _buildIconWithNavigation(
                                 context,
                                 Icons.local_hospital,
@@ -229,7 +299,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       Positioned(
-                        left: -30,
+                        left: -20,
                         top: 35,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -240,7 +310,7 @@ class _HomePageState extends State<HomePage> {
                                 'Shopping',
                                 Colors.purple,
                                 'Shopping'),
-                            const SizedBox(height: 30),
+                            const SizedBox(height: 35),
                             _buildIconWithNavigation(
                                 context,
                                 Icons.family_restroom,
@@ -251,7 +321,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       Positioned(
-                        right: -30,
+                        right: -20,
                         top: 35,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -262,7 +332,7 @@ class _HomePageState extends State<HomePage> {
                                 'Transport',
                                 Colors.green,
                                 'Transport'),
-                            const SizedBox(height: 30),
+                            const SizedBox(height: 35),
                             _buildIconWithNavigation(context, Icons.school,
                                 'Education', Colors.indigo, 'Education'),
                           ],

@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 
-class FinancialReportPage extends StatelessWidget {
+class FinancialReportPage extends StatefulWidget {
   const FinancialReportPage({super.key});
+
+  @override
+  _FinancialReportPageState createState() => _FinancialReportPageState();
+}
+
+class _FinancialReportPageState extends State<FinancialReportPage> {
+  int selectedYear = 2025; // Definisi variabel di dalam State
+
+  final List<int> years = [2023, 2024, 2025, 2026]; // Tambahkan daftar tahun
 
   @override
   Widget build(BuildContext context) {
@@ -27,27 +36,32 @@ class FinancialReportPage extends StatelessWidget {
             width: double.infinity,
             color: Colors.grey.shade300,
             child: Column(
-              children: const [
-                Divider(
-                  color: Colors.black,
-                  thickness: 1,
-                  height: 1,
-                ),
+              children: [
+                const Divider(color: Colors.black, thickness: 1, height: 1),
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Text(
-                        '2025',
-                        style: TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(width: 5),
-                      Icon(Icons.arrow_drop_down, size: 30),
-                    ],
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: DropdownButton<int>(
+                    value: selectedYear,
+                    items: years.map((int year) {
+                      return DropdownMenuItem<int>(
+                        value: year,
+                        child: Text(
+                          year.toString(),
+                          style: const TextStyle(
+                              fontSize: 24, fontWeight: FontWeight.bold),
+                        ),
+                      );
+                    }).toList(),
+                    onChanged: (int? newValue) {
+                      if (newValue != null) {
+                        setState(() {
+                          selectedYear = newValue;
+                        });
+                      }
+                    },
                   ),
                 ),
+                const Divider(color: Colors.black, thickness: 1, height: 1),
                 Divider(
                   color: Colors.black,
                   thickness: 1,
